@@ -6,9 +6,11 @@ class CreateTaskTable extends \Illuminate\Database\Migrations\Migration
     {
         \Illuminate\Support\Facades\Schema::create('tasks', function (\Illuminate\Database\Schema\Blueprint $table) {
             $table->increments('id');
-            $table->integer('task_id');
-            $table->integer('responsible_user_id');
-            $table->timestamp('complete_till_at')->nullable();
+            $table->integer('task_id')->nullable();
+            $table->integer('lead_id')->nullable();
+            $table->integer('note_id')->nullable();
+            $table->integer('responsible_user_id')->nullable();
+            $table->integer('complete_till_at')->nullable();
             $table->string('status')->default('wait');
             $table->timestamps();
         });

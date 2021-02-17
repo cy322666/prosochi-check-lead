@@ -19,4 +19,11 @@ class User extends Model
         'name',
         'group_id',
     ];
+
+    public function getRopByUser() :? User
+    {
+        $user = User::where('group_id', $this->group_id)->where('role', 'rop')->first();
+
+        return $user;
+    }
 }

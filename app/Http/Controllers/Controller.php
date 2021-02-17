@@ -21,5 +21,7 @@ class Controller extends BaseController
 
         $this->amoClient->queries->cachePath(storage_path('cache/amocrm'));
         $this->amoClient->queries->logs(storage_path('logs/amocrm'));
+
+        $this->amoClient->queries->setDelay(0.5);
     }
 }
