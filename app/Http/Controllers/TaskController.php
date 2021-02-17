@@ -31,10 +31,6 @@ class TaskController extends Controller
 
             if($arrayTasks) {
 
-                //Записали в бд
-
-                //запрос менеджеров
-
                 $users = User::all();
 
                 foreach ($arrayTasks as $arrayTask) {

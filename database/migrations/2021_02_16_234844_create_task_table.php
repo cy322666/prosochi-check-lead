@@ -1,6 +1,6 @@
 <?php
 
-class CreateClientsTable extends \Illuminate\Database\Migrations\Migration
+class CreateTaskTable extends \Illuminate\Database\Migrations\Migration
 {
     public function up()
     {

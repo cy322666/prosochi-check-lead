@@ -10,22 +10,41 @@ class UserController extends Controller
 {
     public function get()
     {
-        foreach ($this->amoClient->account->users as $amoUser) {
+        User::where('role', 'manager')->delete();
 
-            if($amoUser->is_active == true && stripos('Отдел продаж', $amoUser->group->name) !== false) {
+        foreach ($this->amoClient->account->userGroups as $group) {
 
-                $user = new User();
-                $user->user_id = $amoUser->id;
-                $user->name = $amoUser->name;
-                $user->group_id = $amoUser->group->id;
-                $user->role = 'manager';
-                $user->save();
+            if(stristr($group->name, 'Отдел продаж') !== false) {
+
+                $groupSale[] = [
+                    'id' => $group->id,
+                ];
             }
         }
-    }
 
-    public function clear()
-    {
-        //чистим менеджеров в базе
+        foreach ($this->amoClient->account->users as $amoUser) {
+
+            if($amoUser->is_active) {
+
+                foreach ($groupSale as $group) {
+
+                    if($amoUser->group->id == $group['id']) {
+
+                        $userModel = User::where('user_id', $amoUser->id)->first();
+
+                        if(!$userModel) {
+
+                            $user = new User();
+
+                            $user->user_id = $amoUser->id;
+                            $user->name = $amoUser->name;
+                            $user->group_id = $amoUser->group->id;
+                            $user->role = 'manager';
+                            $user->save();
+                        }
+                    }
+                }
+            }
+        }
     }
 }
