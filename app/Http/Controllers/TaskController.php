@@ -67,15 +67,22 @@ class TaskController extends Controller
 
                                     $lead = $this->amoClient->leads()->find($task->element_id);
 
-                                    $note = $lead->createNote($type = 4);
-                                    $note->text = $user->name.' просрочил выполнение задачи на 2 дня, сделка возвращена РОПу';
-                                    $note->save();
+                                    if($lead->pipeline_id == 1945420 || $lead->pipeline_id == 3514120) {
 
-                                    $taskModel->lead_id = $lead->id;
-                                    $taskModel->note_id = $note->id;
-                                    $taskModel->status = 'completed';
-                                    $taskModel->save();
+                                        $note = $lead->createNote($type = 4);
+                                        $note->text = $user->name.' просрочил выполнение задачи на 2 дня, сделка возвращена РОПу';
+                                        $note->save();
 
+                                        $taskModel->lead_id = $lead->id;
+                                        $taskModel->note_id = $note->id;
+                                        $taskModel->status = 'completed';
+                                        $taskModel->save();
+                                    } else {
+                                        Log::info('задача ' . $task->id . ' поставлена на сделку не в нужной воронке');
+
+                                        $taskModel->status = 'no_pipeline';
+                                        $taskModel->save();
+                                    }
                                 } else {
                                     Log::info('задача ' . $task->id . ' поставлена не на сделку');
 
