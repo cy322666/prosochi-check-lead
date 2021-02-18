@@ -22,7 +22,7 @@ class TaskController extends Controller
 
                 if($task['complete_till_at'] < $timestamp) {
 
-                    $arrayTasks[] = $task['id'];
+                    $arrayTasks[] = ['id' => $task['id']];
                 }
             }
 
@@ -92,6 +92,7 @@ class TaskController extends Controller
                             }
                         }
                     }
+                    exit;
                 }
             }
         }

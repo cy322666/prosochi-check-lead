@@ -11,13 +11,13 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->amoClient = \Ufee\Amo\Oauthapi::setInstance([
-            'domain' => env('AMO_DOMAIN1'),
-            'client_id' => env('AMO_CLIENT_ID1'),
-            'client_secret' => env('AMO_CLIENT_SECRET1'),
-            'redirect_uri' => env('AMO_REDIRECT_URI1'),
+            'domain' => env('AMO_DOMAIN'),
+            'client_id' => env('AMO_CLIENT_ID'),
+            'client_secret' => env('AMO_CLIENT_SECRET'),
+            'redirect_uri' => env('AMO_REDIRECT_URI'),
         ]);
 
-        $this->amoClient = \Ufee\Amo\Oauthapi::getInstance(env('AMO_CLIENT_ID1'));
+        $this->amoClient = \Ufee\Amo\Oauthapi::getInstance(env('AMO_CLIENT_ID'));
 
         $this->amoClient->queries->cachePath(storage_path('cache/amocrm'));
         $this->amoClient->queries->logs(storage_path('logs/amocrm'));
